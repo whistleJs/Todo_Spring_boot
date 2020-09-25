@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/todo")
 @RestController
 public class TodoController {
@@ -21,5 +23,10 @@ public class TodoController {
     public ResponseEntity<TodoEntity> create(@RequestBody TodoEntity todo) {
         logger.info(todo.getContent(), todo.getTitle());
         return new ResponseEntity<TodoEntity>(service.create(todo), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TodoEntity>> findAll() {
+        return new ResponseEntity<List<TodoEntity>>(service.findAll(), HttpStatus.OK);
     }
 }

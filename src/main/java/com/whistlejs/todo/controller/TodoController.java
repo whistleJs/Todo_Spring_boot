@@ -29,4 +29,9 @@ public class TodoController {
     public ResponseEntity<List<TodoEntity>> findAll() {
         return new ResponseEntity<List<TodoEntity>>(service.findAll(), HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<TodoEntity> deleteById(@PathVariable Long id) {
+        return new ResponseEntity<TodoEntity>(service.deleteById(id), HttpStatus.OK);
+    }
 }

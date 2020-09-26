@@ -25,13 +25,20 @@ public class TodoService {
                 .collect(Collectors.toList());
     }
 
-    public TodoEntity findById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new NoResultException("No result Id : " + id));
+    public List<TodoEntity> findById(Long id) {
+        return repository.findById(id).stream()
+                .filter(item -> item.getDeletedAt() == null)
+                .collect(Collectors.toList());
     }
 
     public TodoEntity deleteById(Long id) {
-        TodoEntity todo = this.findById(id);
+        List<TodoEntity> list = this.findById(id);
+
+        if (list.size() < 1) {
+            throw new NoResultException("No result id : " + id);
+        }
+
+        TodoEntity todo = list.get(0);
         todo.setDeletedAt(LocalDateTime.now());
 
         repository.save(todo);

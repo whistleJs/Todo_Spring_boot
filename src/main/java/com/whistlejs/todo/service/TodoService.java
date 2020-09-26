@@ -31,6 +31,21 @@ public class TodoService {
                 .collect(Collectors.toList());
     }
 
+    public TodoEntity updateById(Long id, TodoEntity todo) {
+        List<TodoEntity> list = this.findById(id);
+
+        if (list.size() < 1) {
+            throw new NoResultException("No result id : " + id);
+        }
+
+        todo.setId(id);
+        todo.setCreatedAt(list.get(0).getCreatedAt());
+
+        repository.save(todo);
+
+        return todo;
+    }
+
     public TodoEntity deleteById(Long id) {
         List<TodoEntity> list = this.findById(id);
 

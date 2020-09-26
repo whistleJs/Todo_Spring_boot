@@ -30,6 +30,11 @@ public class TodoController {
         return new ResponseEntity<List<TodoEntity>>(service.findAll(), HttpStatus.OK);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<TodoEntity> updateById(@PathVariable Long id, @RequestBody TodoEntity todo) {
+        return new ResponseEntity<TodoEntity>(service.updateById(id, todo), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<TodoEntity> deleteById(@PathVariable Long id) {
         return new ResponseEntity<TodoEntity>(service.deleteById(id), HttpStatus.OK);

@@ -21,7 +21,6 @@ public class TodoController {
 
     @PostMapping
     public ResponseEntity<TodoEntity> create(@RequestBody TodoEntity todo) {
-        logger.info(todo.getContent(), todo.getTitle());
         return new ResponseEntity<TodoEntity>(service.create(todo), HttpStatus.OK);
     }
 
